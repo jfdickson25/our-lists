@@ -1,0 +1,53 @@
+<%- include('partials/header.ejs') %>
+    <!-- Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <link rel="stylesheet" href="/style/common.css">
+    <link rel="stylesheet" href="/style/createJoin.css">
+    <title>Create List</title>
+</head>
+<body>
+    <a href="/"><img id="home" src="img/home.png" alt="home"></a>
+    <p id="descriptor">List Code</p>
+    <div class="userInput">
+        <input type="number" name="code" id="code" min="1000" max="9999">
+    </div>
+    <div id="button">
+        <button type="button" onclick="checkCode()">JOIN</button>
+    </div>
+    <div id="error-msg"></div>
+
+    <script>
+        async function checkCode() {
+            let listCode = document.getElementById('code').value;
+
+            let response = await axios.get(`/joinList/${listCode}`);
+
+            console.log(response);
+            
+            if(response.data === true) {
+                if (localStorage.lists) {
+                    // localStorage only supports strings
+                    localLists = JSON.parse(localStorage.lists)
+                    if (false === localLists.includes(parseInt(listCode))) {
+                        localLists.push(parseInt(listCode));
+                        localStorage.lists = JSON.stringify(localLists);
+                    }
+                } else {
+                    localLists = [];
+                    localLists.push(parseInt(listCode));
+                    localStorage.lists = JSON.stringify(localLists);
+                }
+
+                window.location.href = `/list/${listCode}`;
+            } else {
+                if (listCode === "") {
+                    document.getElementById('error-msg').innerHTML = `Please enter a code`
+                } else {
+                    document.getElementById('error-msg').innerHTML = `Code ${listCode} not valid`;
+                }
+            }
+        }
+    </script>
+</body>
+</html>

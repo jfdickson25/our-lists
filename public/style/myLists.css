@@ -1,0 +1,21 @@
+a {
+    text-decoration: none;
+}
+
+#title {
+    color: white;
+    text-align: center;
+    margin-top: 15vh;
+    font-family:'Inter';
+    font-style: bold;
+    text-decoration: underline;
+    font-size: 21pt;
+}
+
+.list {
+    text-align: center;
+    color: white;
+    font-family:'Inter';
+    font-size: 16pt;
+    padding-top: 10px;
+}

@@ -1,0 +1,29 @@
+body {
+    background-color: #577592;
+}
+
+a {
+    text-decoration: none;
+}
+
+#main-icon {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 25%;
+    padding-top: 15vh;
+
+}
+
+.link-list {
+    padding-top: 20px;
+}
+
+.link-list-item {
+    text-align: center;
+    color: white;
+    font-family:'Inter';
+    font-style: italic;
+    font-size: 18pt;
+    padding-top: 15px;
+}

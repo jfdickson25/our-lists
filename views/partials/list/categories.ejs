@@ -1,0 +1,30 @@
+<%
+        list.categories.forEach(category => {%>
+        <div class="category" id="<%= category.name %>">
+          <div class="category-header">
+            <div class="move-down" onclick="moveDown('<%= category.name %>')">▼</div>
+            <div class="move-up" onclick="moveUp('<%= category.name %>')">▲</div>
+            <p class="category-title"><%= category.name %></p>
+            <img class="delete-category" src="/img/delete.png" alt="trash can" onclick="deleteCategory('<%= category.name %>')">
+          </div>
+          <div class="new-item">
+            <input class="new-item-text-input" type="text" placeholder="Item description..." id="<%= category.name %>-text">
+            <input class="new-item-number-input" type="number" placeholder="1" min="1" max="1000" id="<%= category.name %>-number">
+            <button class="new-item-btn btn btn-dark" onclick="addItem('<%= category.name %>')">+</button>
+          </div>
+          <% category.items.forEach(item => { %>
+          <div class="item" id="<%= category.name %>-<%= item.name %>">
+            <div class="item-desc">
+              <%= item.name %> 
+            </div>
+            <div class="item-qnt-down" onclick="decrement('<%=category.name%>-<%=item.name%>')">↓</div>
+            <div class="item-qnt"><%=item.quantity%></div>
+            <div class="item-qnt-up" onclick="increment('<%=category.name%>-<%=item.name%>')">↑</div>
+            <div class="item-delete" onclick="crossOffItem('<%=category.name%>-<%=item.name%>')">
+              -
+            </div>
+          </div>
+          <% }); %>
+        </div>
+        <%});
+    %>

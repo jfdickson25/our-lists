@@ -1,0 +1,42 @@
+<%- include('partials/header.ejs') %>
+    <link rel="stylesheet" href="/style/common.css">
+    <link rel="stylesheet" href="/style/createJoin.css">
+    <title>Create List</title>
+</head>
+<body>
+    <a href="/"><img id="home" src="img/home.png" alt="home"></a>
+    <form action="/createList" method="post">
+        <p id="descriptor">List Name</p>
+        <div class="userInput">
+            <input type="text" name="list" id="list" required>
+        </div>
+        <input type="hidden" name="code" id="code">
+        <div id="button">
+            <button onclick="generateRandomCode()" type="submit">CREATE</button>
+        </div>
+    </form>
+
+    <script>
+        async function generateRandomCode() {
+            // Generate random code
+            min = Math.ceil(1000);
+            max = Math.floor(9999);
+            let randomCode = Math.floor(Math.random() * (max - min + 1) + min);
+
+            let localLists;
+
+            document.getElementById('code').value = randomCode;
+            if (localStorage.lists) {
+                // localStorage only supports strings
+                localLists = JSON.parse(localStorage.lists)
+                localLists.push(randomCode);
+                localStorage.lists = JSON.stringify(localLists);
+            } else {
+                localLists = [];
+                localLists.push(randomCode);
+                localStorage.lists = JSON.stringify(localLists);
+            }
+        } 
+    </script>
+</body>
+</html>

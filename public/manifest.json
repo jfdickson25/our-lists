@@ -1,0 +1,22 @@
+{
+    "name": "Our Lists",
+    "short_name": "Our Lists",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#fff",
+    "description": "An app to create lists with friends and family",
+    "icons": [
+        {
+            "src": "/img/grocery-144.png",
+            "sizes": "144x144",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/img/grocery-128.png",
+            "sizes": "128x128",
+            "type": "image/png",
+            "purpose": "maskable any"
+        }
+    ]
+}

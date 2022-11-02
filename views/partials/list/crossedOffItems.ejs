@@ -1,0 +1,10 @@
+<% list.crossedOff.forEach(crossedOffItem => { %>
+    <div id="<%= crossedOffItem.category %>-<%= crossedOffItem.name %>-<%= crossedOffItem.quantity %>" class="crossed-off-item">
+      <div class="crossed-off-text" onclick="addBack('<%= crossedOffItem.category %>-<%= crossedOffItem.name %>-<%= crossedOffItem.quantity %>')">
+        <%= crossedOffItem.quantity %> - <%= crossedOffItem.name %>
+      </div>
+      <div class="deleteItem" onclick="deleteItem('<%= crossedOffItem.category %>-<%= crossedOffItem.name %>-<%= crossedOffItem.quantity %>')">
+        x
+      </div>
+    </div>
+  <% }) %>

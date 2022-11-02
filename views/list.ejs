@@ -1,0 +1,230 @@
+<%- include('partials/header.ejs') %>
+<!-- Bootstrap -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<!-- Axios -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<link rel="stylesheet" href="/style/common.css">
+<link rel="stylesheet" href="/style/list.css">
+<title>List</title>
+</head>
+<body>
+    <div id="header">
+        <a href="/"><img id="home" src="/img/home.png" alt="home"></a>
+        <p id="list-name"><%= list.name %></p>
+    </div>
+    <div id="list-code">CODE: <%= list.code %></div>
+    <% let code = list.code %>
+    <p id="add" data-toggle="modal" data-target="#myModal">+</p>
+    <div id="categories">
+      <%- include('partials/list/categories') %>
+    </div>
+
+    <div id="crossed-off">
+      <div id="crossed-off-header">
+        <div id="crossed-off-title">
+          Crossed Off
+        </div>
+      </div>
+      <%- include('partials/list/crossedOffItems') %>
+    </div>
+
+    <div id="footer">
+      <div id="delete-list" onclick="deleteList()">
+        Delete List
+      </div>
+    </div>
+
+
+    <%- include('partials/modals/addCategory.ejs') %>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    let socket = io();
+    let code = <%- code %>;
+
+    function addItem(category) {
+      let itemDesc = document.getElementById(`${category}-text`);
+      let itemQnt = document.getElementById(`${category}-number`).value;
+
+      if(itemQnt === "") {
+        itemQnt = 1;
+      }
+
+      socket.emit('add-item', {category: category, item: itemDesc.value, qnt: itemQnt});
+
+      axios.post('/list/addItem', {
+          code: code,
+          category: category,
+          item: itemDesc.value,
+          qnt: itemQnt
+      });
+
+      itemDesc.value = "";
+      document.getElementById(`${category}-number`).value = "";
+    }
+
+    function addCategory() {
+      let categoryName = document.getElementById("new-category").value;
+        if(categoryName !== "") {
+
+          socket.emit('add-category', categoryName);
+
+          // Send request to save category in database
+          axios.post('/list/addCategory', {
+            categoryName: categoryName,
+            code: code
+          })
+          .then(response => {
+            console.log(response.data);
+          })
+          .catch(err => {
+            console.log(err);
+          });
+        }
+    }
+
+    function deleteItem(itemId) {
+      socket.emit('remove-item', itemId);
+
+      let array = itemId.split('-');
+
+      axios.delete('/list/item', { 
+        data: {
+          item: array[1], 
+          code: code
+        }
+      });
+    }
+
+    function deleteCategory(categoryName) {
+      socket.emit('remove-category', categoryName);
+
+      axios.delete('/list/category', { 
+        data: {
+          categoryName: categoryName, 
+          code: code
+        }
+      });
+    }
+
+    function decrement(itemId) {
+      let qntElement = document.getElementById(itemId).children[2];
+      let qnt = qntElement.innerHTML;
+
+      if(qnt !== "0") {
+        socket.emit("decrement", itemId);
+
+        let array = itemId.split('-');
+        let category = array[0];
+        let item = array[1];
+        qnt--;
+
+        axios.post('/list/changeQnt', {
+          category,
+          item,
+          qnt: qnt.toString(),
+          code
+        });
+      }
+    }
+
+    function increment(itemId) {
+      socket.emit("increment", itemId);
+
+      let qntElement = document.getElementById(itemId).children[2];
+      let qnt = qntElement.innerHTML;
+
+      let array = itemId.split('-');
+      let category = array[0];
+      let item = array[1];
+      qnt++;
+
+      axios.post('/list/changeQnt', {
+        category,
+        item,
+        qnt: qnt.toString(),
+        code
+      });
+    }
+
+    function crossOffItem(itemId) {
+      let array = itemId.split('-');
+
+      let category = array[0];
+      let description = array[1];
+      let quantity = document.getElementById(itemId).children[2].innerHTML;
+
+      socket.emit('cross-off-item', {
+        category,
+        description,
+        quantity
+      });
+
+      axios.post('/list/crossOff', {
+          category,
+          description,
+          quantity,
+          code
+      });
+    }
+
+    function addBack(itemId) {
+      let array = itemId.split('-');
+      let category = array[0];
+      let item = array[1];
+      let qnt = array[2];
+      
+      socket.emit('add-item', {category, item, qnt});
+      socket.emit('un-cross-off', itemId);
+
+      axios.post('/list/removeCrossedOff', {
+          category,
+          item,
+          qnt,
+          code
+      });
+    }
+
+    function moveDown(category) {
+      let element = document.getElementById(category);
+
+      if(element.nextElementSibling) {
+        socket.emit('move-down', category);
+
+        axios.post('/list/moveDown', {
+          category,
+          code
+        });
+      }
+    }
+
+    function moveUp(category) {
+      let element = document.getElementById(category);
+
+      if(element.previousElementSibling) {
+        socket.emit('move-up', category);
+
+        axios.post('/list/moveUp', {
+          category,
+          code
+        });
+      }
+    }
+
+    async function deleteList() {
+      let msg = await axios.delete('/list', { 
+        data: {
+          code: code
+        }
+      });
+
+      socket.emit('delete-list');
+    }
+  </script>
+  <script src="/js/list/listeners.js"></script>
+</body>
+</html>

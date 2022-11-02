@@ -1,0 +1,49 @@
+<%- include('partials/header.ejs') %>
+    <link rel="stylesheet" href="/style/common.css">
+    <link rel="stylesheet" href="/style/myLists.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>My Lists</title>
+</head>
+<body onload="loadLists()">
+    <a href="/"><img id="home" src="img/home.png" alt="home"></a>
+    <p id="title">My Lists</p> 
+    <div id="lists"></div>
+</body>
+<script>
+    function loadLists() {
+        let localLists = JSON.parse(localStorage.lists);
+
+        console.log(localLists);
+
+        localLists.forEach(async(list) => {
+            let response = await axios.get(`https://our-lists.onrender.com/myLists/${list}`);
+
+            if (response.data !== false ) {
+                // Get the name from the response
+                let name = response.data;
+
+                // Create link DOM object and set link
+                let link = document.createElement('a');
+                link.href = `list/${list}`;
+
+                // Create list item
+                let listItem = document.createElement('p');
+                listItem.classList.add('list');
+                listItem.innerHTML = name;
+
+                // Append list item to the link
+                link.appendChild(listItem);
+                // Append link to the section of lists
+                document.getElementById('lists').appendChild(link);
+            } else {
+                const index = localLists.indexOf(list);
+                if (index > -1) { // only splice array when item is found
+                    localLists.splice(index, 1); // 2nd parameter means remove one item only
+                }
+
+                localStorage.lists = JSON.stringify(localLists);
+            }
+        });
+    }
+</script>
+</html>

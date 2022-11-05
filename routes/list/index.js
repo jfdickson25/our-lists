@@ -71,11 +71,14 @@ router
         // Return the array of the items with the desired item removed
         list.categories[categoryIndex].items.splice(itemIndex, 1);
 
-        // Add item to crossed off array
-        list.crossedOff.push(item);
+        // Validate item has not already been crossed off 
+        if (list.crossedOff.filter(i => i.name === item.name).length === 0) {
+            // Add item to crossed off array
+            list.crossedOff.push(item);
 
-        // Save the list with the updated items array
-        list.save();
+            // Save the list with the updated items array
+            list.save();
+        }
     })
     .post('/removeCrossedOff', async(req, res, next) => {
         // Get the list by it's code

@@ -45,23 +45,25 @@ socket.on("add-item", function(item) {
     let itemToRemove = document.getElementById(`${item.category}-${item.description}`);
     itemToRemove.parentElement.removeChild(itemToRemove);
 
-    let crossedOffItem = document.createElement('div');
-    crossedOffItem.id = `${item.category}-${item.description}-${item.quantity}`;
-    crossedOffItem.classList.add('crossed-off-item');
+    if(null === document.getElementById(`${item.category}-${item.description}-${item.quantity}`)) {
+      let crossedOffItem = document.createElement('div');
+      crossedOffItem.id = `${item.category}-${item.description}-${item.quantity}`;
+      crossedOffItem.classList.add('crossed-off-item');
 
-    let itemDescAndQnt = document.createElement('div');
-    itemDescAndQnt.classList.add('crossed-off-text');
-    itemDescAndQnt.innerHTML = `${item.quantity} - ${item.description}`;
-    itemDescAndQnt.setAttribute('onclick', `addBack('${item.category}-${item.description}-${item.quantity}')`);
-    crossedOffItem.appendChild(itemDescAndQnt);
+      let itemDescAndQnt = document.createElement('div');
+      itemDescAndQnt.classList.add('crossed-off-text');
+      itemDescAndQnt.innerHTML = `${item.quantity} - ${item.description}`;
+      itemDescAndQnt.setAttribute('onclick', `addBack('${item.category}-${item.description}-${item.quantity}')`);
+      crossedOffItem.appendChild(itemDescAndQnt);
 
-    let deleteItem = document.createElement('div');
-    deleteItem.classList.add('deleteItem');
-    deleteItem.innerHTML = 'x';
-    deleteItem.setAttribute('onclick', `deleteItem('${item.category}-${item.description}-${item.quantity}')`);
-    crossedOffItem.appendChild(deleteItem);
+      let deleteItem = document.createElement('div');
+      deleteItem.classList.add('deleteItem');
+      deleteItem.innerHTML = 'x';
+      deleteItem.setAttribute('onclick', `deleteItem('${item.category}-${item.description}-${item.quantity}')`);
+      crossedOffItem.appendChild(deleteItem);
 
-    document.getElementById('crossed-off').appendChild(crossedOffItem);
+      document.getElementById('crossed-off').appendChild(crossedOffItem);
+    }
 
   });
 

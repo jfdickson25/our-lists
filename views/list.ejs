@@ -15,6 +15,7 @@
     <div id="header">
         <a href="/"><img id="home" src="/img/home.png" alt="home"></a>
         <p id="list-name"><%= list.name %></p>
+        <img src="/img/refresh.png" alt="refresh icon" id="list-refresh">
     </div>
     <div id="list-code">CODE: <%= list.code %></div>
     <% let code = list.code %>
@@ -45,6 +46,10 @@
   <script>
     let socket = io();
     let code = <%- code %>;
+
+    document.getElementById('list-refresh').addEventListener('click', function() {
+      document.location.reload();
+    });
 
     function addItem(category) {
       let itemDesc = document.getElementById(`${category}-text`);

@@ -1,4 +1,5 @@
 {
+  "engines": { "node": "12.x" },
   "name": "our-lists",
   "version": "1.0.0",
   "description": "",

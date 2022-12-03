@@ -26,6 +26,8 @@ body {
 
 #content {
     display: grid;
+    grid-template-columns: repeat(17, 1fr);
+    width: 100%;
     justify-items: center;
     align-items: center;
 }

@@ -60,3 +60,16 @@ button {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+@media only screen and (min-width: 1200px) {
+    #story {
+        grid-column: 8/11;
+    }
+
+    .user-input {
+        grid-column: 3/6;
+    }
+
+    button {
+        grid-column: 3/6;
+    }
+}

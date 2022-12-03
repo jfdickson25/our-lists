@@ -32,6 +32,13 @@ body {
     align-items: center;
 }
 
-h1 h2 h3 p a {
-    font-family: 'Alexandria', sans-serif;
+@media only screen and (min-width: 1200px) {
+    #back {
+        grid-column: 2;
+    }
+
+    #header p {
+        grid-column: 3/16;
+        font-size: 18pt;
+    }
 }

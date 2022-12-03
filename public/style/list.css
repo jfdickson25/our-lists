@@ -233,3 +233,25 @@
     width: 80%;
     grid-column: 12;
 }
+
+@media only screen and (min-width: 1200px) {
+    #list-refresh {
+        grid-column: 16;
+    }
+
+    .category {
+        width: 25vw;
+        margin-left: 37.5vw;
+        margin-right: 37.5vw;
+    }
+
+    #crossed-off {
+        width: 25vw;
+        margin-left: 37.5vw;
+        margin-right: 37.5vw;
+    }
+
+    #delete-list {
+        grid-column: 7/12;
+    }
+}

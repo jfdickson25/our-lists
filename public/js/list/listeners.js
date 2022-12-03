@@ -113,10 +113,9 @@ socket.on("add-item", function(item) {
         textInput.setAttribute("placeholder", "Item description...")
         addItemSection.appendChild(textInput);
 
-        let addBtn = document.createElement('btn');
+        let addBtn = document.createElement('IMG');
+        addBtn.src = '/img/icons/add.png'
         addBtn.classList.add('new-item-btn');
-        addBtn.classList.add('btn');
-        addBtn.innerHTML = '+';
         addBtn.addEventListener('click', function() {
           addItem(category);
         });

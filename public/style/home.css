@@ -49,3 +49,13 @@ a {
     font-weight: 400;
     margin: 0;
 }
+
+@media only screen and (min-width: 1200px) {
+    #main-icon {
+        width: 10%;
+    }
+
+    .link-list-item {
+        grid-column: 8/11;
+    }
+}

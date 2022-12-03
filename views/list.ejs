@@ -12,30 +12,39 @@
 <title>List</title>
 </head>
 <body>
-    <div id="header">
-        <a href="/"><img id="home" src="/img/home.png" alt="home"></a>
-        <p id="list-name"><%= list.name %></p>
-        <img src="/img/refresh.png" alt="refresh icon" id="list-refresh">
-    </div>
-    <div id="list-code">CODE: <%= list.code %></div>
-    <% let code = list.code %>
-    <p id="add" data-toggle="modal" data-target="#myModal">+</p>
-    <div id="categories">
-      <%- include('partials/list/categories') %>
-    </div>
-
-    <div id="crossed-off">
-      <div id="crossed-off-header">
-        <div id="crossed-off-title">
-          Crossed Off
-        </div>
+    <div id="content">
+      <div id="header">
+          <img id="back" src="/img/icons/back.png" alt="back">
+          <p id="list-name"><%= list.name %></p>
+          <img src="/img/refresh.png" alt="refresh icon" id="list-refresh">
       </div>
-      <%- include('partials/list/crossedOffItems') %>
-    </div>
 
-    <div id="footer">
-      <div id="delete-list" onclick="deleteList()">
-        Delete List
+
+      <div class="list">
+
+        <div id="list-code">CODE: <%= list.code %></div>
+        <% let code = list.code %>
+        <p id="add" data-toggle="modal" data-target="#myModal">+</p>
+
+
+        <div id="categories">
+          <%- include('partials/list/categories') %>
+        </div>
+
+        <div id="crossed-off">
+          <div id="crossed-off-header">
+            <div id="crossed-off-title">
+              Crossed Off
+            </div>
+          </div>
+          <%- include('partials/list/crossedOffItems') %>
+        </div>
+
+        <div id="footer">
+          <div id="delete-list" onclick="deleteList()">
+            Delete List
+          </div>
+        </div>
       </div>
     </div>
 
@@ -47,17 +56,17 @@
     let socket = io();
     let code = <%- code %>;
 
+    document.getElementById('back').addEventListener('click', function() {
+            window.location.href = "/myLists";
+        });
+
     document.getElementById('list-refresh').addEventListener('click', function() {
       document.location.reload();
     });
 
     function addItem(category) {
       let itemDesc = document.getElementById(`${category}-text`);
-      let itemQnt = document.getElementById(`${category}-number`).value;
-
-      if(itemQnt === "") {
-        itemQnt = 1;
-      }
+      let itemQnt = 1
 
       socket.emit('add-item', {category: category, item: itemDesc.value, qnt: itemQnt});
 

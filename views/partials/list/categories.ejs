@@ -8,21 +8,18 @@
             <img class="delete-category" src="/img/delete.png" alt="trash can" onclick="deleteCategory('<%= category.name %>')">
           </div>
           <div class="new-item">
-            <input class="new-item-text-input" type="text" placeholder="Item description..." id="<%= category.name %>-text">
-            <input class="new-item-number-input" type="number" placeholder="1" min="1" max="1000" id="<%= category.name %>-number">
-            <button class="new-item-btn btn btn-dark" onclick="addItem('<%= category.name %>')">+</button>
+            <input class="new-item-text-input" type="text" placeholder="Item description" id="<%= category.name %>-text">
+            <img src="/img/icons/add.png" class="new-item-btn" onclick="addItem('<%= category.name %>')" />
           </div>
           <% category.items.forEach(item => { %>
           <div class="item" id="<%= category.name %>-<%= item.name %>">
             <div class="item-desc">
               <%= item.name %> 
             </div>
-            <div class="item-qnt-down" onclick="decrement('<%=category.name%>-<%=item.name%>')">↓</div>
+            <img src="/img/icons/decrement.png" class="item-qnt-down" onclick="decrement('<%=category.name%>-<%=item.name%>')" />
             <div class="item-qnt"><%=item.quantity%></div>
-            <div class="item-qnt-up" onclick="increment('<%=category.name%>-<%=item.name%>')">↑</div>
-            <div class="item-delete" onclick="crossOffItem('<%=category.name%>-<%=item.name%>')">
-              -
-            </div>
+            <img src="/img/icons/increment.png" class="item-qnt-up" onclick="increment('<%=category.name%>-<%=item.name%>')" />
+            <img src="/img/icons/delete.png" class="item-delete" onclick="crossOffItem('<%=category.name%>-<%=item.name%>')" />
           </div>
           <% }); %>
         </div>

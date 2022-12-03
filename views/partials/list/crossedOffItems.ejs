@@ -3,8 +3,6 @@
       <div class="crossed-off-text" onclick="addBack('<%= crossedOffItem.category %>-<%= crossedOffItem.name %>-<%= crossedOffItem.quantity %>')">
         <%= crossedOffItem.quantity %> - <%= crossedOffItem.name %>
       </div>
-      <div class="deleteItem" onclick="deleteItem('<%= crossedOffItem.category %>-<%= crossedOffItem.name %>-<%= crossedOffItem.quantity %>')">
-        x
-      </div>
+      <img src="/img/icons/permDelete.png" class="deleteItem" onclick="deleteItem('<%= crossedOffItem.category %>-<%= crossedOffItem.name %>-<%= crossedOffItem.quantity %>')" />
     </div>
   <% }) %>

@@ -7,17 +7,24 @@
     <title>Create List</title>
 </head>
 <body>
-    <a href="/"><img id="home" src="img/home.png" alt="home"></a>
-    <p id="descriptor">List Code</p>
-    <div class="userInput">
-        <input type="number" name="code" id="code" min="1000" max="9999">
+    <div id="content">
+        <div id="header">
+            <img id="back" src="img/icons/back.png" alt="back"></a>
+            <p>Join List</p>
+        </div>
+        <img id="story" src="img/story-img/join.svg" alt="Join Img" />
+        <div class="input-section">
+            <input class="user-input" placeholder="List Code" type="number" name="code" id="code" min="1000" max="9999">
+            <button type="button" onclick="checkCode()">JOIN</button>
+            <div id="error-msg"></div>
+        </div>
     </div>
-    <div id="button">
-        <button type="button" onclick="checkCode()">JOIN</button>
-    </div>
-    <div id="error-msg"></div>
 
     <script>
+        document.getElementById('back').addEventListener('click', function() {
+            window.location.href = "/";
+        });
+        
         async function checkCode() {
             let listCode = document.getElementById('code').value;
 

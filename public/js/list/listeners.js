@@ -10,8 +10,8 @@ socket.on("add-item", function(item) {
     newItemDesc.innerHTML = item.item;
     newItem.appendChild(newItemDesc);
 
-    let newItemDown = document.createElement('div');
-    newItemDown.innerHTML = "↓";
+    let newItemDown = document.createElement('IMG');
+    newItemDown.src = "/img/icons/decrement.png";
     newItemDown.classList.add('item-qnt-down');
     newItemDown.setAttribute('onclick', `decrement('${item.category}-${item.item}')`);
     newItem.appendChild(newItemDown);
@@ -21,15 +21,15 @@ socket.on("add-item", function(item) {
     newItemQnt.innerHTML = item.qnt;
     newItem.appendChild(newItemQnt);
 
-    let newItemUp = document.createElement('div');
-    newItemUp.innerHTML = "↑";
+    let newItemUp = document.createElement('IMG');
+    newItemUp.src = "/img/icons/increment.png";
     newItemUp.classList.add('item-qnt-up');
     newItemUp.setAttribute('onclick', `increment('${item.category}-${item.item}')`);
     newItem.appendChild(newItemUp);
 
-    let newItemDelete = document.createElement('div');
+    let newItemDelete = document.createElement('IMG');
+    newItemDelete.src = "/img/icons/delete.png";
     newItemDelete.classList.add('item-delete');
-    newItemDelete.innerHTML = "-";
     newItemDelete.setAttribute('onclick', `crossOffItem('${item.category}-${item.item}')`);
     newItem.appendChild(newItemDelete);
 
@@ -56,9 +56,9 @@ socket.on("add-item", function(item) {
       itemDescAndQnt.setAttribute('onclick', `addBack('${item.category}-${item.description}-${item.quantity}')`);
       crossedOffItem.appendChild(itemDescAndQnt);
 
-      let deleteItem = document.createElement('div');
-      deleteItem.classList.add('deleteItem');
-      deleteItem.innerHTML = 'x';
+      let deleteItem = document.createElement('IMG');
+      deleteItem.src = "/img/icons/permDelete.png";
+      deleteItem.classList.add("deleteItem");
       deleteItem.setAttribute('onclick', `deleteItem('${item.category}-${item.description}-${item.quantity}')`);
       crossedOffItem.appendChild(deleteItem);
 
@@ -112,13 +112,6 @@ socket.on("add-item", function(item) {
         textInput.id = `${category}-text`;
         textInput.setAttribute("placeholder", "Item description...")
         addItemSection.appendChild(textInput);
-
-        let numberInput = document.createElement("INPUT");
-        numberInput.setAttribute("type", "number");
-        numberInput.classList.add('new-item-number-input')
-        numberInput.id = `${category}-number`;
-        numberInput.setAttribute("placeholder", "1")
-        addItemSection.appendChild(numberInput);
 
         let addBtn = document.createElement('btn');
         addBtn.classList.add('new-item-btn');

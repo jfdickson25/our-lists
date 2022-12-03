@@ -4,19 +4,24 @@
     <title>Create List</title>
 </head>
 <body>
-    <a href="/"><img id="home" src="img/home.png" alt="home"></a>
-    <form action="/createList" method="post">
-        <p id="descriptor">List Name</p>
-        <div class="userInput">
-            <input type="text" name="list" id="list" required>
+    <div id="content">
+        <div id="header">
+            <img id="back" src="img/icons/back.png" alt="back">
+            <p>Create List</p>
         </div>
-        <input type="hidden" name="code" id="code">
-        <div id="button">
-            <button onclick="generateRandomCode()" type="submit">CREATE</button>
-        </div>
-    </form>
+        <img id="story" src="img/story-img/create.svg" alt="Create Img" />
+        <form class="input-section" action="/createList" method="post">
+            <input class="user-input" type="text" placeholder="List Name" name="list" id="list" required />
+            <input type="hidden" name="code" id="code" />
+            <button onclick="generateRandomCode()" type="submit">Create</button>
+        </form>
+    </div>
 
     <script>
+        document.getElementById('back').addEventListener('click', function() {
+            window.location.href = "/";
+        });
+
         async function generateRandomCode() {
             // Generate random code
             min = Math.ceil(1000);

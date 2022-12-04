@@ -51,6 +51,7 @@
 
     <%- include('partials/modals/addCategory.ejs') %>
 
+  <script src="/js/list/localUpdate.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script>
     let socket = io();
@@ -77,6 +78,7 @@
           qnt: itemQnt
       });
 
+      localAddItem({category: category, item: itemDesc.value, qnt: itemQnt});
       itemDesc.value = "";
       document.getElementById(`${category}-number`).value = "";
     }
@@ -86,6 +88,8 @@
         if(categoryName !== "") {
 
           socket.emit('add-category', categoryName);
+
+          localAddCategory(categoryName);
 
           // Send request to save category in database
           axios.post('/list/addCategory', {
@@ -106,6 +110,8 @@
 
       let array = itemId.split('-');
 
+      localDeleteItem(itemId);
+
       axios.delete('/list/item', { 
         data: {
           item: array[1], 
@@ -116,6 +122,8 @@
 
     function deleteCategory(categoryName) {
       socket.emit('remove-category', categoryName);
+
+      localDeleteCategory(categoryName);
 
       axios.delete('/list/category', { 
         data: {
@@ -130,13 +138,15 @@
       let qnt = qntElement.innerHTML;
 
       if(qnt !== "0") {
-        socket.emit("decrement", itemId);
+        localDecrement(itemId);
 
         let array = itemId.split('-');
         let category = array[0];
         let item = array[1];
         qnt--;
 
+        socket.emit("decrement", itemId);
+        
         axios.post('/list/changeQnt', {
           category,
           item,
@@ -147,7 +157,6 @@
     }
 
     function increment(itemId) {
-      socket.emit("increment", itemId);
 
       let qntElement = document.getElementById(itemId).children[2];
       let qnt = qntElement.innerHTML;
@@ -156,6 +165,10 @@
       let category = array[0];
       let item = array[1];
       qnt++;
+
+      localIncrement(itemId);
+
+      socket.emit("increment", itemId);
 
       axios.post('/list/changeQnt', {
         category,
@@ -171,6 +184,12 @@
       let category = array[0];
       let description = array[1];
       let quantity = document.getElementById(itemId).children[2].innerHTML;
+
+      localCrossOff({
+        category,
+        description,
+        quantity
+      });
 
       socket.emit('cross-off-item', {
         category,
@@ -191,6 +210,9 @@
       let category = array[0];
       let item = array[1];
       let qnt = array[2];
+
+      localAddItem({category, item, qnt});
+      localUncrossOff(itemId);
       
       socket.emit('add-item', {category, item, qnt});
       socket.emit('un-cross-off', itemId);
@@ -209,6 +231,8 @@
       if(element.nextElementSibling) {
         socket.emit('move-down', category);
 
+        localMoveDown(category);
+
         axios.post('/list/moveDown', {
           category,
           code
@@ -221,6 +245,8 @@
 
       if(element.previousElementSibling) {
         socket.emit('move-up', category);
+
+        localMoveUp(category);
 
         axios.post('/list/moveUp', {
           category,
@@ -237,6 +263,8 @@
       });
 
       socket.emit('delete-list');
+
+      localDeleteList();
     }
   </script>
   <script src="/js/list/listeners.js"></script>

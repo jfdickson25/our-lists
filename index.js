@@ -37,47 +37,47 @@ app
 
         io.on('connection', (socket) => {
             socket.on('add-item', (item) => {
-                io.emit('add-item', item);
+                socket.broadcast.emit('add-item', item);
             });
 
             socket.on('remove-item', (item) => {
-                io.emit('remove-item', item);
+                socket.broadcast.emit('remove-item', item);
             });
 
             socket.on('add-category', category => {
-                io.emit('add-category', category);
+                socket.broadcast.emit('add-category', category);
             });
 
             socket.on('remove-category', category => {
-                io.emit('remove-category', category);
+                socket.broadcast.emit('remove-category', category);
             });
 
             socket.on('move-down', category => {
-                io.emit('move-down', category);
+                socket.broadcast.emit('move-down', category);
             });
 
             socket.on('move-up', category => {
-                io.emit('move-up', category);
+                socket.broadcast.emit('move-up', category);
             });
 
             socket.on('delete-list', () => {
-                io.emit('delete-list');
+                socket.broadcast.emit('delete-list');
             });
 
             socket.on('cross-off-item', item => {
-                io.emit('cross-off-item', item);
+                socket.broadcast.emit('cross-off-item', item);
             });
 
             socket.on('un-cross-off', item => {
-                io.emit('un-cross-off', item);
+                socket.broadcast.emit('un-cross-off', item);
             });
 
             socket.on('decrement', item => {
-                io.emit('decrement', item);
+                socket.broadcast.emit('decrement', item);
             });
 
             socket.on('increment', item => {
-                io.emit('increment', item);
+                socket.broadcast.emit('increment', item);
             });
     
             socket.on('error', function (err) { 

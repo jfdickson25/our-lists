@@ -13,7 +13,7 @@ router
             res.status(200).send(response.name);
         })
         .catch(err => {
-            res.status(500).send(false);
+            res.status(200).send(false);
         })
     });
 

@@ -23,10 +23,9 @@
 
         console.log(localLists);
 
-        localLists.forEach(async(list) => {
-            let response = await axios.get(`https://our-lists.glitch.me//myLists/${list}`);
-
-            if (response.data !== false ) {
+        localLists.forEach(async(list, index) => {
+            await axios.get(`https://our-lists.glitch.me/myLists/${list}`)
+            .then(response => {
                 // Get the name from the response
                 let name = response.data;
 
@@ -54,14 +53,14 @@
 
                 // Append card to the section of lists
                 document.getElementById('lists').appendChild(card);
-            } else {
-                const index = localLists.indexOf(list);
-                if (index > -1) { // only splice array when item is found
-                    localLists.splice(index, 1); // 2nd parameter means remove one item only
-                }
+            })
+            .catch(err => {
+                localLists.splice(index, 1); // 2nd parameter means remove one item only
+
+                console.log(`Local Lists: ${localLists}`)
 
                 localStorage.lists = JSON.stringify(localLists);
-            }
+            });
         });
     }
 </script>

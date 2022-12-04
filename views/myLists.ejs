@@ -26,33 +26,35 @@
         localLists.forEach(async(list, index) => {
             await axios.get(`https://our-lists.glitch.me/myLists/${list}`)
             .then(response => {
-                // Get the name from the response
-                let name = response.data;
+                if(response.data !== false) {
+                    // Get the name from the response
+                    let name = response.data;
 
-                // Create link DOM object and set link
-                let card = document.createElement('div');
-                card.classList.add('list');
+                    // Create link DOM object and set link
+                    let card = document.createElement('div');
+                    card.classList.add('list');
 
-                let listName = document.createElement('p');
-                listName.classList.add('list-name');
-                listName.innerHTML = name;
+                    let listName = document.createElement('p');
+                    listName.classList.add('list-name');
+                    listName.innerHTML = name;
 
-                let view = document.createElement('a');
-                view.classList.add('list-view');
-                view.href = `list/${list}`;
-                view.innerHTML = 'View';
+                    let view = document.createElement('a');
+                    view.classList.add('list-view');
+                    view.href = `list/${list}`;
+                    view.innerHTML = 'View';
 
-                let link = document.createElement('a');
-                link.classList.add('list-link');
-                link.href = `list/${list}`;
-                link.innerHTML = '>';
+                    let link = document.createElement('a');
+                    link.classList.add('list-link');
+                    link.href = `list/${list}`;
+                    link.innerHTML = '>';
 
-                card.appendChild(listName);
-                card.appendChild(view);
-                card.appendChild(link);
+                    card.appendChild(listName);
+                    card.appendChild(view);
+                    card.appendChild(link);
 
-                // Append card to the section of lists
-                document.getElementById('lists').appendChild(card);
+                    // Append card to the section of lists
+                    document.getElementById('lists').appendChild(card);
+                }
             })
             .catch(err => {
                 localLists.splice(index, 1); // 2nd parameter means remove one item only

@@ -21,8 +21,6 @@
     function loadLists() {
         let localLists = JSON.parse(localStorage.lists);
 
-        console.log(localLists);
-
         localLists.forEach(async(list, index) => {
             await axios.get(`https://our-lists.glitch.me/myLists/${list}`)
             .then(response => {
@@ -54,13 +52,13 @@
 
                     // Append card to the section of lists
                     document.getElementById('lists').appendChild(card);
+                } else {
+                    localLists.splice(index, 1); // 2nd parameter means remove one item only
+                    localStorage.lists = JSON.stringify(localLists);
                 }
             })
             .catch(err => {
                 localLists.splice(index, 1); // 2nd parameter means remove one item only
-
-                console.log(`Local Lists: ${localLists}`)
-
                 localStorage.lists = JSON.stringify(localLists);
             });
         });

@@ -29,8 +29,6 @@
             let listCode = document.getElementById('code').value;
 
             let response = await axios.get(`/joinList/${listCode}`);
-
-            console.log(response);
             
             if(response.data === true) {
                 if (localStorage.lists) {

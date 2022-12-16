@@ -110,11 +110,13 @@
 .move-down {
     grid-column: 1;
     font-size: 10pt;
+    color: #D3D3D3;
 }
 
 .move-up {
     grid-column: 2;
     font-size: 10pt;
+    color: #D3D3D3;
 }
 
 .category-title {

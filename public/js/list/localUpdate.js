@@ -11,7 +11,7 @@ const localAddItem = (item) => {
     newItem.appendChild(newItemDesc);
 
     let newItemDown = document.createElement('IMG');
-    newItemDown.src = "/img/icons/decrement.png";
+    newItemDown.src = "https://cdn.glitch.global/71abb948-06b6-45e2-9e86-296831ccc27f/48C3862F-B100-4C96-9E13-4904E8110A92.png?v=1670449112716";
     newItemDown.classList.add('item-qnt-down');
     newItemDown.setAttribute('onclick', `decrement('${item.category}-${item.item}')`);
     newItem.appendChild(newItemDown);
@@ -22,7 +22,7 @@ const localAddItem = (item) => {
     newItem.appendChild(newItemQnt);
 
     let newItemUp = document.createElement('IMG');
-    newItemUp.src = "/img/icons/increment.png";
+    newItemUp.src = "https://cdn.glitch.global/71abb948-06b6-45e2-9e86-296831ccc27f/7FC7EC0F-DC94-41A5-8463-74BE4F73965B.png?v=1670449121956";
     newItemUp.classList.add('item-qnt-up');
     newItemUp.setAttribute('onclick', `increment('${item.category}-${item.item}')`);
     newItem.appendChild(newItemUp);

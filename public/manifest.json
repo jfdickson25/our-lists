@@ -4,8 +4,15 @@
     "start_url": "/",
     "display": "standalone",
     "background_color": "#fff",
+    "theme_color": "#577592",
     "description": "An app to create lists with friends and family",
     "icons": [
+        {
+            "src": "/img/milk-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable any"
+        },
         {
             "src": "/img/milk-144.png",
             "sizes": "144x144",

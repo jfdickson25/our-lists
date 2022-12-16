@@ -18,6 +18,11 @@ body {
     width: 100%;
 }
 
+#back:active {
+    transition: all .25s;
+    transform: scale(1.2);
+}
+
 #header p {
     grid-column: 4/15;
     font-size: 16pt;

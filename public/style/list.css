@@ -42,6 +42,11 @@
     width: 75%;
 }
 
+#list-refresh:active {
+    transition: all .5s;
+    transform: rotate(360deg);
+}
+
 #list-code {
     color: black;
     text-align: center;

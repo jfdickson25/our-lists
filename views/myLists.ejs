@@ -14,8 +14,14 @@
     </div>
 </body>
 <script>
-    document.getElementById('back').addEventListener('click', function() {
+    let back = document.getElementById('back')
+    
+    back.addEventListener('click', function() {
+      back.classList.toggle('goBack');
+
+      setTimeout(() => {
         window.location.href = "/";
+      }, 700);
     });
     
     function loadLists() {

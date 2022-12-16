@@ -57,12 +57,24 @@
     let socket = io();
     let code = <%- code %>;
 
-    document.getElementById('back').addEventListener('click', function() {
-            window.location.href = "/myLists";
-        });
+    let back = document.getElementById('back')
+    
+    back.addEventListener('click', function() {
+      back.classList.toggle('goBack');
 
-    document.getElementById('list-refresh').addEventListener('click', function() {
-      document.location.reload();
+      setTimeout(() => {
+        window.location.href = "/myLists";
+      }, 700);
+    });
+
+    let refresh = document.getElementById('list-refresh')
+    
+    refresh.addEventListener('click', function() {
+      refresh.classList.toggle('rotate');
+
+      setTimeout(() => {
+        document.location.reload();
+      }, 1000);
     });
 
     function addItem(category) {

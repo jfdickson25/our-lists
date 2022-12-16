@@ -18,8 +18,8 @@ body {
     width: 100%;
 }
 
-#back:active {
-    transition: all .25s;
+.goBack {
+    transition: .5s;
     transform: scale(1.2);
 }
 

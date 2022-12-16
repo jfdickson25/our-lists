@@ -18,8 +18,14 @@
     </div>
 
     <script>
-        document.getElementById('back').addEventListener('click', function() {
-            window.location.href = "/";
+        let back = document.getElementById('back')
+    
+        back.addEventListener('click', function() {
+            back.classList.toggle('goBack');
+
+            setTimeout(() => {
+                window.location.href = "/";
+            }, 700);
         });
 
         async function generateRandomCode() {
